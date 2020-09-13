@@ -1,0 +1,33 @@
+micronaut:
+  application:
+    name: micronaut-template
+    default-charset: UTF-8
+  server:
+    port: 8080
+    
+  metrics:
+    enabled: true
+    export:
+      prometheus:
+        enabled: true
+        step: PT1M
+        descriptions: true
+
+  router:
+    static-resources:
+      default:
+        enabled: true
+        mapping: "/**"
+        paths: "classpath:site"
+      swagger-ui:
+        paths: classpath:/swagger-ui
+        mapping: /swagger-ui/**
+
+endpoints:
+  health:
+    enabled: true
+    sensitive: false
+    details-visible: ANONYMOUS # show details for everyone
+  prometheus:
+    enabled: true
+    sensitive: false

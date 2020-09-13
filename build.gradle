@@ -1,10 +1,11 @@
 plugins {
+    id 'java'
     id 'jacoco'
-    id 'java-library'
-    id 'maven-publish'
+    id 'application'
 
     id 'org.sonarqube' version '3.0'
     id 'com.diffplug.gradle.spotless' version '4.4.0'
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
 }
 
 repositories {
@@ -43,7 +44,14 @@ configurations {
 dependencies {
     micronautBom enforcedPlatform('io.micronaut:micronaut-bom:2.0.2')
 
+    annotationProcessor 'io.micronaut.configuration:micronaut-openapi'
     annotationProcessor 'io.micronaut:micronaut-inject-java'
+
+    compileOnly 'io.swagger.core.v3:swagger-annotations'
+
+    compile 'io.micronaut:micronaut-runtime'
+    compile 'io.micronaut:micronaut-http-client'
+    compile 'io.micronaut:micronaut-http-server-netty'
 
     testAnnotationProcessor 'io.micronaut:micronaut-inject-java'
 
@@ -55,6 +63,13 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-params'
 }
 
+//noinspection GroovyAssignabilityCheck
+run {
+    environment([
+            "SECURITY_ENABLED": "false",
+    ])
+}
+
 test {
     useJUnitPlatform()
     testLogging {
@@ -63,8 +78,24 @@ test {
     }
 
     environment([
+            "SECURITY_ENABLED": "false",
             "USE_INTEGRATION_TESTS"   : "$useIntegrationTests",
     ])
+}
+
+mainClassName = "micronaut.template.Application"
+jar.enabled = false
+shadowJar {
+    mergeServiceFiles()
+    manifest {
+        attributes 'Main-Class': mainClassName
+        attributes 'App-Version': artifactVersion
+        attributes 'Implementation-Version': buildNumber
+    }
+}
+
+artifacts {
+    archives shadowJar
 }
 
 tasks.withType(JavaCompile) {
@@ -80,53 +111,10 @@ javadoc {
     }
 }
 
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allJava
-    archiveClassifier = 'sources'
-}
-
-task javadocJar(type: Jar) {
-    from javadoc
-    archiveClassifier = 'javadoc'
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-            artifact sourcesJar
-            artifact javadocJar
-        }
-    }
-    repositories {
-        maven {
-            def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
-            def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
-            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-            credentials {
-                username System.getenv("OSS_USER")
-                password System.getenv("OSS_PASS")
-            }
-        }
-    }
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
-
 check.dependsOn jacocoTestReport
 jacocoTestReport {
     reports {
         xml.enabled true
         html.destination file("${buildDir}/jacocoHtml")
-    }
-}
-
-if (project.hasProperty("signing.keyId")) {
-    apply plugin: 'signing'
-    signing {
-        sign publishing.publications.mavenJava
     }
 }
