@@ -9,11 +9,13 @@ import io.swagger.v3.oas.annotations.servers.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "Micronaut Template",
+                title = "API",
                 version = "1",
                 description = "Micronaut Template Description",
                 contact = @Contact(url = "https://github.com/GoodforGod", name = "Anton Kurako", email = "goodforgod.dev@gmail.com"),
@@ -32,7 +34,11 @@ public class Application {
 
     public static void main(String[] args) {
         final Logger logger = LoggerFactory.getLogger(Application.class);
-        System.getenv().forEach((k, v) -> logger.debug("{}={}", k, v));
+        final Collection<String> expected = List.of("SECURITY_ENABLED");
+
+        System.getenv().entrySet().stream()
+                .filter(e -> expected.contains(e.getKey()))
+                .forEach(e -> logger.debug("{}={}", e.getKey(), e.getValue()));
         Micronaut.run(Application.class);
     }
 }

@@ -12,13 +12,10 @@
         <appender-ref ref="STDOUT"/>
     </appender>
 
-    <root level="${ROOT_LOG_LEVEL:-WARN}">
+    <root level="INFO">
         <appender-ref ref="ASYNC"/>
     </root>
 
-    <logger level="${SX_LOG_LEVEL:-INFO}" name="sx.microservices"/>
-    <logger level="${SX_LOG_LEVEL:-INFO}" name="sx.microservices.fias"/>
-
-    <logger level="DEBUG" name="sx.microservices.fias.Application"/>
+    <logger level="DEBUG" name="micronaut.template.Application"/>
     <logger level="INFO" name="io.micronaut.runtime.Micronaut"/>
 </configuration>

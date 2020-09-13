@@ -5,7 +5,7 @@ plugins {
 
     id 'org.sonarqube' version '3.0'
     id 'com.diffplug.gradle.spotless' version '4.4.0'
-    id 'com.github.johnrengelman.shadow' version '5.1.0'
+    id 'com.github.johnrengelman.shadow' version '6.0.0'
 }
 
 repositories {
@@ -48,13 +48,21 @@ dependencies {
     annotationProcessor 'io.micronaut:micronaut-inject-java'
 
     compileOnly 'io.swagger.core.v3:swagger-annotations'
+    compileOnly 'io.swagger.core.v3:swagger-annotations'
+
+    compile 'org.jetbrains:annotations:19.0.0'
+    compile 'ch.qos.logback:logback-classic:1.2.3'
 
     compile 'io.micronaut:micronaut-runtime'
     compile 'io.micronaut:micronaut-http-client'
     compile 'io.micronaut:micronaut-http-server-netty'
+    compile 'io.micronaut:micronaut-management'
+    compile 'io.micronaut.micrometer:micronaut-micrometer-core'
+    compile 'io.micronaut.micrometer:micronaut-micrometer-registry-prometheus'
 
     testAnnotationProcessor 'io.micronaut:micronaut-inject-java'
 
+    testCompile 'io.micronaut:micronaut-http-client'
     testCompile 'io.micronaut.test:micronaut-test-core'
     testCompile 'io.micronaut.test:micronaut-test-junit5'
 
@@ -84,7 +92,7 @@ test {
 }
 
 mainClassName = "micronaut.template.Application"
-jar.enabled = false
+jar.enabled = true
 shadowJar {
     mergeServiceFiles()
     manifest {
