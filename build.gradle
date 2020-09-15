@@ -97,8 +97,8 @@ shadowJar {
     mergeServiceFiles()
     manifest {
         attributes 'Main-Class': mainClassName
-        attributes 'App-Version': artifactVersion
-        attributes 'Implementation-Version': buildNumber
+        attributes 'Implementation-Version': artifactVersion
+        attributes 'Build-Version': buildNumber
     }
 }
 
