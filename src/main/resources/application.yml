@@ -13,15 +13,6 @@ micronaut:
         step: PT1M
         descriptions: true
 
-  router:
-    static-resources:
-      swagger:
-        paths: classpath:META-INF/swagger
-        mapping: /api/**
-      swagger-ui:
-        paths: classpath:swagger-ui
-        mapping: /api/ui
-
 endpoints:
   health:
     enabled: true
@@ -30,6 +21,20 @@ endpoints:
   prometheus:
     enabled: true
     sensitive: false
+  beans:
+    enabled: false
+  info:
+    enabled: false
+  refresh:
+    enabled: false
+  routes:
+    enabled: false
+  loggers:
+    enabled: false
+  env:
+    enabled: false
+  threaddump:
+    enabled: false
 
 jackson:
   date-format: yyyy-MM-dd'T'HH:mm:ss.SSSX
