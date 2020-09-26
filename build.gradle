@@ -42,16 +42,16 @@ configurations {
 }
 
 dependencies {
-    micronautBom enforcedPlatform('io.micronaut:micronaut-bom:2.0.2')
+    micronautBom enforcedPlatform('io.micronaut:micronaut-bom:2.0.3')
 
     annotationProcessor 'io.micronaut.configuration:micronaut-openapi'
     annotationProcessor 'io.micronaut:micronaut-inject-java'
 
     compileOnly 'io.swagger.core.v3:swagger-annotations'
-    compileOnly 'io.swagger.core.v3:swagger-annotations'
 
-    compile 'org.jetbrains:annotations:19.0.0'
+    compile 'org.jetbrains:annotations:20.1.0'
     compile 'ch.qos.logback:logback-classic:1.2.3'
+    compile 'com.github.goodforgod:micronaut-swagger-api:1.0.0'
 
     compile 'io.micronaut:micronaut-runtime'
     compile 'io.micronaut:micronaut-http-client'
@@ -106,10 +106,25 @@ artifacts {
     archives shadowJar
 }
 
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier = 'sources'
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    archiveClassifier = 'javadoc'
+}
+
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
     options.incremental = true
     options.fork = true
+}
+
+tasks.withType(Test) {
+    reports.html.enabled = false
+    reports.junitXml.enabled = false
 }
 
 javadoc {
