@@ -1,8 +1,8 @@
 plugins {
     id 'java'
     id 'jacoco'
-    id 'application'
 
+    id 'io.micronaut.application' version '1.0.3'
     id 'org.sonarqube' version '3.0'
     id 'com.diffplug.gradle.spotless' version '4.4.0'
     id 'com.github.johnrengelman.shadow' version '6.0.0'
@@ -31,19 +31,22 @@ spotless {
 configurations {
     all {
         resolutionStrategy {
-            cacheChangingModulesFor(1000, 'seconds') // check for updates every build
+            cacheChangingModulesFor(1000, 'seconds') // refresh cache for snapshots
         }
     }
-    micronautBom
-    compileOnly.extendsFrom(micronautBom)
-    implementation.extendsFrom(micronautBom)
-    annotationProcessor.extendsFrom(micronautBom)
-    testAnnotationProcessor.extendsFrom(micronautBom)
+}
+
+micronaut {
+    version '2.1.0'
+    processing {
+        incremental true
+        module project.name
+        group project.group
+        annotations 'micronaut.template.*'
+    }
 }
 
 dependencies {
-    micronautBom enforcedPlatform('io.micronaut:micronaut-bom:2.0.3')
-
     annotationProcessor 'io.micronaut.configuration:micronaut-openapi'
     annotationProcessor 'io.micronaut:micronaut-inject-java'
 
@@ -86,8 +89,8 @@ test {
     }
 
     environment([
-            "SECURITY_ENABLED": "false",
-            "USE_INTEGRATION_TESTS"   : "$useIntegrationTests",
+            "SECURITY_ENABLED"     : "false",
+            "USE_INTEGRATION_TESTS": "$useIntegrationTests",
     ])
 }
 
@@ -100,20 +103,6 @@ shadowJar {
         attributes 'Implementation-Version': artifactVersion
         attributes 'Build-Version': buildNumber
     }
-}
-
-artifacts {
-    archives shadowJar
-}
-
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allJava
-    archiveClassifier = 'sources'
-}
-
-task javadocJar(type: Jar) {
-    from javadoc
-    archiveClassifier = 'javadoc'
 }
 
 tasks.withType(JavaCompile) {
