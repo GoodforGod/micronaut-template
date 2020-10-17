@@ -15,9 +15,9 @@ import java.util.Optional;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "API",
+                title = "micronaut-template",
                 version = "1",
-                description = "Micronaut Template Description",
+                description = "micronaut-template-description",
                 contact = @Contact(url = "https://github.com/GoodforGod", name = "Anton Kurako", email = "goodforgod.dev@gmail.com"),
                 license = @License(
                         name = "Apache 2.0",
