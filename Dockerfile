@@ -5,7 +5,7 @@ ARG JAR_DIR=build/libs
 
 RUN mkdir -p "$APP_DIR"
 
-ADD $JAR_DIR/*.jar $APP_DIR/app.jar
+COPY $JAR_DIR/*.jar $APP_DIR/app.jar
 
 EXPOSE 8080/tcp
 

@@ -16,6 +16,8 @@
         <appender-ref ref="ASYNC"/>
     </root>
 
+    <logger level="INFO" name="micronaut.template"/>
+
     <logger level="DEBUG" name="micronaut.template.Application"/>
     <logger level="INFO" name="io.micronaut.runtime.Micronaut"/>
 </configuration>
