@@ -1,6 +1,6 @@
 micronaut:
   application:
-    name: micronaut-template
+    name: micronaut-java-app-template
     default-charset: UTF-8
   server:
     port: 8080
@@ -13,11 +13,12 @@ micronaut:
         step: PT1M
         descriptions: true
 
+
 endpoints:
   health:
     enabled: true
     sensitive: false
-    details-visible: ANONYMOUS
+#    details-visible: ANONYMOUS
   prometheus:
     enabled: true
     sensitive: false
@@ -36,5 +37,8 @@ endpoints:
   threaddump:
     enabled: false
 
+
 jackson:
-  date-format: yyyy-MM-dd'T'HH:mm:ss.SSSX
+  date-format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+  serialization:
+    write-dates-as-timestamps: false

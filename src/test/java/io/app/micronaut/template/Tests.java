@@ -1,4 +1,4 @@
-package micronaut.template;
+package io.app.micronaut.template;
 
 /**
  * @author GoodforGod
