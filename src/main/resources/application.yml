@@ -14,6 +14,12 @@ micronaut:
         descriptions: true
 
 
+jackson:
+  date-format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+  serialization:
+    write-dates-as-timestamps: false
+
+
 endpoints:
   health:
     enabled: true
@@ -37,8 +43,3 @@ endpoints:
   threaddump:
     enabled: false
 
-
-jackson:
-  date-format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
-  serialization:
-    write-dates-as-timestamps: false
