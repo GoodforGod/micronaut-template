@@ -1,6 +1,6 @@
 micronaut:
   application:
-    name: micronaut-java-app-template
+    name: micronaut-java-template
     default-charset: UTF-8
   server:
     port: 8080
