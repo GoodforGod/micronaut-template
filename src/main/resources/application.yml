@@ -24,7 +24,7 @@ endpoints:
   health:
     enabled: true
     sensitive: false
-#    details-visible: ANONYMOUS
+    details-visible: ANONYMOUS
   prometheus:
     enabled: true
     sensitive: false
