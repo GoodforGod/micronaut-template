@@ -20,15 +20,6 @@ version = artifactVersion
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
-spotless {
-    java {
-        encoding("UTF-8")
-        importOrder()
-        removeUnusedImports()
-        eclipse().configFile("${projectDir}/config/codestyle.xml")
-    }
-}
-
 configurations {
     all {
         resolutionStrategy {
@@ -38,7 +29,7 @@ configurations {
 }
 
 micronaut {
-    version("3.2.0")
+    version("3.2.2")
     processing {
         incremental(true)
         module(project.name)
@@ -54,7 +45,7 @@ dependencies {
 
     implementation "io.micronaut:micronaut-runtime"
     implementation "org.jetbrains:annotations:22.0.0"
-    implementation 'ch.qos.logback:logback-classic:1.2.7'
+    implementation "ch.qos.logback:logback-classic:1.2.8"
     implementation "io.projectreactor:reactor-core"
 
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
@@ -97,6 +88,15 @@ test {
     }
 }
 
+spotless {
+    java {
+        encoding("UTF-8")
+        importOrder()
+        removeUnusedImports()
+        eclipse("4.21.0").configFile("${projectDir}/codestyle.xml")
+    }
+}
+
 mainClassName = "io.goodforgod.micronaut.template.Application"
 jar.enabled(true)
 shadowJar {
@@ -105,6 +105,7 @@ shadowJar {
         attributes "Main-Class": mainClassName
         attributes "Implementation-Version": artifactVersion
         attributes "Build-Version": buildNumber
+        attributes "Build-Time": java.time.OffsetDateTime.now()
     }
 }
 
