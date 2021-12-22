@@ -1,6 +1,5 @@
 package io.goodforgod.micronaut.template;
 
-
 import io.micronaut.runtime.Micronaut;
 import java.util.Collection;
 import java.util.Map;
@@ -8,7 +7,6 @@ import java.util.Optional;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 public class Application {
 
