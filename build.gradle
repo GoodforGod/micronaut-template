@@ -4,7 +4,7 @@ plugins {
     id "application"
 
     id "org.sonarqube" version "3.3"
-    id "com.diffplug.spotless" version "6.0.4"
+    id "com.diffplug.spotless" version "6.1.0"
     id "com.github.johnrengelman.shadow" version "7.1.0"
 }
 
@@ -29,7 +29,7 @@ configurations {
 }
 
 dependencies {
-    micronautBom enforcedPlatform("io.micronaut:micronaut-bom:3.2.3")
+    micronautBom enforcedPlatform("io.micronaut:micronaut-bom:3.2.4")
 
     annotationProcessor "io.micronaut:micronaut-inject-java"
 
@@ -38,7 +38,7 @@ dependencies {
     implementation "io.micronaut:micronaut-runtime"
 
     implementation "org.jetbrains:annotations:22.0.0"
-    implementation "ch.qos.logback:logback-classic:1.2.8"
+    implementation "ch.qos.logback:logback-classic:1.2.10"
     implementation "io.projectreactor:reactor-core"
 
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
