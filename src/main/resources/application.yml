@@ -1,6 +1,6 @@
 micronaut:
   application:
-    name: micronaut-java-template
+    name: micronaut-template
     default-charset: UTF-8
   server:
     port: 8080
@@ -18,6 +18,10 @@ jackson:
   date-format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
   serialization:
     write-dates-as-timestamps: false
+  deserialization:
+    adjust-dates-to-context-time-zone: false
+  datetime:
+    enabled: true
 
 
 endpoints:

@@ -17,6 +17,8 @@ repositories {
 group = groupId
 version = artifactVersion
 
+mainClassName = "io.goodforgod.micronaut.template.Application"
+
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
@@ -29,14 +31,13 @@ configurations {
 }
 
 dependencies {
-    micronautBom enforcedPlatform("io.micronaut:micronaut-bom:3.2.4")
+    micronautBom enforcedPlatform("io.micronaut:micronaut-bom:3.3.0")
 
     annotationProcessor "io.micronaut:micronaut-inject-java"
 
     compileOnly "io.micronaut:micronaut-inject-java"
 
-    implementation "io.micronaut:micronaut-runtime"
-
+    implementation "io.goodforgod:micronaut-jackson-datetime:1.0.0"
     implementation "org.jetbrains:annotations:22.0.0"
     implementation "ch.qos.logback:logback-classic:1.2.10"
     implementation "io.projectreactor:reactor-core"
@@ -90,8 +91,6 @@ spotless {
     }
 }
 
-mainClassName = "io.goodforgod.micronaut.template.Application"
-jar.enabled(true)
 shadowJar {
     mergeServiceFiles()
     manifest {
