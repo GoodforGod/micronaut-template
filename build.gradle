@@ -31,16 +31,19 @@ configurations {
 }
 
 dependencies {
-    micronautBom enforcedPlatform("io.micronaut:micronaut-bom:3.3.0")
+    micronautBom enforcedPlatform("io.micronaut:micronaut-bom:3.4.0")
 
     annotationProcessor "io.micronaut:micronaut-inject-java"
 
     compileOnly "io.micronaut:micronaut-inject-java"
 
-    implementation "io.goodforgod:micronaut-jackson-datetime:1.0.0"
-    implementation "org.jetbrains:annotations:22.0.0"
-    implementation "ch.qos.logback:logback-classic:1.2.10"
+    implementation "io.micronaut:micronaut-runtime"
     implementation "io.projectreactor:reactor-core"
+
+    implementation "org.jetbrains:annotations:23.0.0"
+    implementation "io.goodforgod:micronaut-jackson-datetime:1.0.0"
+    implementation "ch.qos.logback:logback-classic:1.2.11"
+    implementation "org.codehaus.janino:janino:3.1.6"
 
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
 

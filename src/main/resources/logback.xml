@@ -1,12 +1,24 @@
 <configuration>
     <contextName>${BUILD_NUMBER:-1}</contextName>
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <charset>UTF-8</charset>
-            <pattern>%cyan(%d{HH:mm:ss.SSS}) [%cn] %highlight(%-5level) %logger{36} - %msg%n</pattern>
-        </encoder>
-    </appender>
+    <if condition='isDefined("IS_PROD")'>
+        <then>
+            <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+                <encoder>
+                    <charset>UTF-8</charset>
+                    <pattern>%d{HH:mm:ss.SSS} [%cn] %-5level %logger{36} - %msg%n</pattern>
+                </encoder>
+            </appender>
+        </then>
+        <else>
+            <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+                <encoder>
+                    <charset>UTF-8</charset>
+                    <pattern>%cyan(%d{HH:mm:ss.SSS}) [%cn] %highlight(%-5level) %logger{36} - %msg%n</pattern>
+                </encoder>
+            </appender>
+        </else>
+    </if>
 
     <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
         <appender-ref ref="STDOUT"/>
